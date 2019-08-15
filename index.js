@@ -6,7 +6,7 @@ const spaceShips = document.querySelector('table');
 searchForm.addEventListener('submit', fetchSpace);
 
 function fetchSpace(event) {
-    event.preventDefault(); //prevents the webpage from reloading
+    /*!!!!!!!!!!!!!!!!!!!!!!!!!!*/event.preventDefault(); //prevents the webpage from reloading
     fetch(baseURL) //returns a promise, which can either be accepted or rejected
         .then(result => {
             // console.log(result);
