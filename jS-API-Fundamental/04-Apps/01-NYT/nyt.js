@@ -8,12 +8,12 @@ let url; //3
 
 // 3: We'll see later how we use the let url variable. We'll use it to make a dynamic search url.
 
-
+//------------------------------------------------ GLOBAL SCOPE-----------------------------------------------------------------------------------
 //SEARCH FORM
-const searchTerm = document.querySelector('.search');
+const searchTerm = document.querySelector('.search'); //class .search on tag input
 const startDate = document.querySelector('.start-date');
 const endDate = document.querySelector('.end-date');
-const searchForm = document.querySelector('form');
+const searchForm = document.querySelector('form'); //tag <form></form> inside <div></div>
 const submitBtn = document.querySelector('.submit');
 
 //RESULTS NAVIGATION
@@ -23,14 +23,14 @@ const nav = document.querySelector('nav');
 
 //RESULTS SECTION
 const section = document.querySelector('section');
-
+//------------------------------------------------------------------------------------------------------------------------------------------------
 // Variable
 nav.style.display = 'none';
 
 // Pagination and Display
-let pageNumber = 0;
+let pageNumber = 0; // Setting up number for pageNumber
 console.log('PageNumber:', pageNumber);
-let displayNav = false;
+let displayNav = false; // Setting up boolean for displayNav
 
 // Event Listeners
         //1                     //2   
@@ -52,14 +52,14 @@ previousBtn.addEventListener('click', previousPage); //3
                     //1
 function fetchResults(e) {
     // console.log(e); //2
-    e.preventDefault(); //1**
+    e.preventDefault(); //1**  //prevents the page from refreshing while running the event
     // Assemble the full URL
     // url = baseURL + key + pageNumber + searchTerm.value;
     //ERROR//
     // index.html:1 Access to fetch at 'https://api.nytimes.com/svc/search/v2/articlesearch.jsonnX4ndAkoSNvb77YfcUpwLQlvl8YrTxA80sports' from origin 'null' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
     // GET https://api.nytimes.com/svc/search/v2/articlesearch.jsonnX4ndAkoSNvb77YfcUpwLQlvl8YrTxA80sports net::ERR_FAILED
     // Uncaught (in promise) TypeError: Failed to fetch
-    
+    // url = `${baseURL}?api-key=${key}&page=${pageNumber}&q=${searchTerm.value}`
     url = baseURL + '?api-key=' + key + '&page=' + pageNumber + '&q=' + searchTerm.value; //3
     // console.log(url); //4
     console.log("URL:", url);
@@ -78,7 +78,7 @@ function fetchResults(e) {
     //6
     fetch(url)
         .then(function(result) {
-            // console.log(result)
+            console.log(result)
             return result.json(); //7
         }).then(function(json) {
             console.log(json); //8
@@ -88,7 +88,7 @@ function fetchResults(e) {
 
 //10
 function displayResults(json) {
-    // console.log("DisplayResults", json);
+    console.log("DisplayResults", json);
     // console.log(json.response.docs);
     let articles = json.response.docs;
     // console.log(articles);
@@ -179,6 +179,7 @@ function nextPage(e) {
     pageNumber++; //37
     fetchResults(e); //38
     console.log("Page number:", pageNumber); //39
+    console.log(url);
 };
 
 // previousPage()
@@ -189,7 +190,8 @@ function previousPage(e) {
         return; //42
     }
     fetchResults(e); //43
-    console.log("Page:", pageNumber); //44
+    console.log("Page:", pageNumber);
+     //44
 }
 
 // function nextPage() {
